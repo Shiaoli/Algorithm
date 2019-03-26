@@ -37,9 +37,16 @@ namespace Algorithm
             */
 
             // 16 Medium
+            /*
             int[] nums16 = new int[] {-1, 2, 1, -4 };
             int result16 = pro.ThreeSumClosest(nums16, 1);
             Console.WriteLine(result16);
+            */
+
+            // 20 Easy
+            string s = "(){}]";
+            bool result20 = pro.IsValid(s);
+            Console.WriteLine(result20);
 
         }
 
@@ -143,7 +150,8 @@ namespace Algorithm
                 return sum;
             }
 
-        // 17 Medium
+        // 17 Medium Not finished
+        /*
         public IList<string> LetterCombinations(string digits)
         {
             char[][] mapping = new char[8][];
@@ -157,17 +165,104 @@ namespace Algorithm
             mapping[7] = new char[4] { 'w', 'x', 'y', 'z' };
 
             List<string> result = new List<string>();
+
+            int length = 1;
             for(int i = 0; i < digits.Length; i++)
             {
-                if(digits[i] == '0'|| digits[i] == '1')
+                if(digits[i] == '7'|| digits[i] == '9')
                 {
-                    result.Add("");
+                    length = length * 4;
                 }
                 else
                 {
-                    for()
+                    length = length * 3;
+                }
+            }
+
+            for(int )
+        }
+        */
+
+        // 20, Easy finished
+        public bool IsValid(string s)
+        {
+            var intString = new List<int>();
+            for(int i = 0; i < s.Length; i++)
+            {
+                switch (s[i])
+                {
+                    case '(':
+                        intString.Add(1);
+                        break;
+                    case ')':
+                        intString.Add(-1);
+                        break;
+                    case '{':
+                        intString.Add(2);
+                        break;
+                    case '}':
+                        intString.Add(-2);
+                        break;
+                    case '[':
+                        intString.Add(3);
+                        break;
+                    case ']':
+                        intString.Add(-3);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            var match = new Stack<int>();
+            foreach(int num in intString)
+            {
+                if(match.Count == 0)
+                {
+                    match.Push(num);
+                }
+                else
+                {
+                    if(match.Peek()+num == 0)
+                    {
+                        match.Pop();
+                    }
+                    else
+                    {
+                        match.Push(num);
+                    }
+                }
+            }
+            if(match.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //21, Easy 
+        
+        public ListNode MergeTwoList(ListNode l1, ListNode l2)
+        {
+            ListNode first = l1;
+            ListNode second = l2;
+            ListNode backup = l2;
+            //l2 = l2.next;
+            while(l1.next != null)
+            {
+                if (l1.val < l2.val)
+                {
+
                 }
             }
         }
+    }
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
     }
 }
