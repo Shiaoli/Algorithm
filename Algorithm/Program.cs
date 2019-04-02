@@ -44,9 +44,23 @@ namespace Algorithm
             */
 
             // 20 Easy
+            /***
             string s = "(){}]";
             bool result20 = pro.IsValid(s);
             Console.WriteLine(result20);
+            ****/
+
+            //26 easy
+            /***
+            int[] nums = { 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5 };
+            int result26 = pro.RemoveDuplicates(nums);
+            Console.WriteLine(result26);
+            ***/
+
+            //27 easy
+            int[] val27 = { 0, 1, 2, 2, 3, 3, 0, 3, 4 };
+            int v27 = 2;
+            int length27 = pro.RemoveElement(val27, v27);
 
         }
 
@@ -242,11 +256,12 @@ namespace Algorithm
             }
         }
 
-        //21, Easy 
+        //21, Easy not finish
         
+        /*
         public ListNode MergeTwoList(ListNode l1, ListNode l2)
         {
-            ListNode first = l1;
+            ListNode first = l1.next;
             ListNode second = l2;
             ListNode backup = l2;
             //l2 = l2.next;
@@ -254,10 +269,131 @@ namespace Algorithm
             {
                 if (l1.val < l2.val)
                 {
-
+                    l1.next = l2;
+                    l2 = l1;
+                }
+                else
+                {
+                    l2 = l2.next;
                 }
             }
         }
+        **/
+
+        //26 easy finished
+        public int RemoveDuplicates(int[] nums)
+        {
+            int compare = nums[0];
+            int length = nums.Length;
+            for(int i=1; i < nums.Length; i++)
+            {
+                if(compare == nums[i])
+                {
+                    length--;
+                }
+                else
+                {
+                    compare = nums[i];
+                    nums[i - nums.Length + length] = nums[i];
+                }
+            }
+            return length;
+        }
+
+        //27 easy finished
+        public int RemoveElement(int[] nums, int val)
+        {
+            int movement = 0;
+            for (int i = 0; i < nums.Length - movement; i++)
+            {
+                if (nums[i] == val)
+                {
+                    for (int j = i; j < nums.Length - 1; j++)
+                    {
+                        nums[j] = nums[j + 1];
+                    }
+                    nums[nums.Length - 1] = val;
+                    movement++;
+                    i--;
+                    Console.WriteLine(movement);
+                }
+            }
+            return nums.Length - movement;
+        }
+
+        //28 Easy finished
+        public int StrStr(string haystack, string needle)
+        {
+            if (needle.Length == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                int stamp = 0;
+                for (int i = 0; i < haystack.Length; i++)
+                {
+                    if (haystack[i] == needle[0])
+                    {
+                        stamp = i;
+                        int t = i;
+                        for (int j = 0; j < needle.Length; j++)
+                        {
+                            if (haystack[t] != needle[j])
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                if (j == needle.Length - 1)
+                                {
+                                    return stamp;
+                                }
+                            }
+                            if (t < haystack.Length - 1)
+                            {
+                                t++;
+                            }
+                            else
+                            {
+                                if (j != needle.Length - 1)
+                                    return -1;
+                            }
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        //459. Repeated Substring Pattern Easy Finished
+        public bool RepeatedSubstringPattern(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                int len = i + 1;
+                if (s.Length % len == 0)
+                {
+                    string sub = s.Substring(0, len);
+                    //Console.WriteLine(sub);
+                    for (int j = len; j < s.Length; j += len)
+                    {
+                        string compare = s.Substring(j, len);
+                        //Console.WriteLine(compare);
+                        if (sub != compare)
+                            break;
+                        else
+                        {
+                            if (j + len == s.Length)
+                                return true;
+                        }
+                    }
+                    //return true;
+                }
+            }
+            return false;
+        }
+
     }
     public class ListNode
     {
